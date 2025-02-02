@@ -11,11 +11,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
@@ -25,11 +25,12 @@ jobs:
     - name: Build Maven Project and Display Goals
       run: |
         mvn clean install -B
+        mvn help:describe -Dcmd=clean
         mvn help:describe -Dcmd=compile
         mvn help:describe -Dcmd=test
         mvn help:describe -Dcmd=package
         mvn help:describe -Dcmd=install
         mvn help:describe -Dcmd=deploy
         mvn help:describe -Dcmd=site
-        mvn help:describe -Dcmd=dependency
-        mvn help:describe -Dcmd=plugin
+        mvn dependency:tree  # Analyze dependencies
+        mvn plugin:help      # Display plugin information
